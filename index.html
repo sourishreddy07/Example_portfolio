@@ -1,0 +1,628 @@
+
+
+Sourish reddy portfolio · HTML
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pingili Sourish Reddy — Data Science Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a0f1e;
+    --bg-alt:#0e1526;
+    --surface:#131d35;
+    --surface-hi:#1a2846;
+    --border:rgba(255,255,255,0.08);
+    --text:#e9edf7;
+    --muted:#8d99ba;
+    --teal:#4fd1c5;
+    --coral:#ff6b5c;
+    --teal-soft:rgba(79,209,197,0.12);
+    --coral-soft:rgba(255,107,92,0.12);
+    --shadow: 0 20px 60px rgba(0,0,0,0.45);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    line-height:1.6;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--teal);color:#06141a;}
+  h1,h2,h3,.display{font-family:'Space Grotesk',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;text-decoration:none;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:1140px;margin:0 auto;padding:0 32px;}
+  section{position:relative;padding:140px 0;}
+  @media(max-width:768px){section{padding:96px 0;}}
+ 
+  /* background grid texture */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size:48px 48px;
+    pointer-events:none;
+    z-index:0;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 0%, black 10%, transparent 70%);
+  }
+ 
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed;top:0;left:0;right:0;
+    z-index:100;
+    backdrop-filter:blur(14px);
+    background:rgba(10,15,30,0.7);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s ease, background .3s ease;
+  }
+  header.scrolled{border-bottom-color:var(--border);}
+  nav.wrap{
+    display:flex;align-items:center;justify-content:space-between;
+    height:76px;
+  }
+  .logo{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;font-size:1.15rem;
+    letter-spacing:0.02em;
+    display:flex;align-items:center;gap:10px;
+  }
+  .logo .dot{width:8px;height:8px;border-radius:50%;background:var(--teal);box-shadow:0 0 12px var(--teal);}
+  .nav-links{display:flex;gap:36px;align-items:center;}
+  .nav-links a{
+    font-size:0.92rem;color:var(--muted);
+    position:relative;padding:4px 0;
+    transition:color .25s ease;
+  }
+  .nav-links a::after{
+    content:"";position:absolute;left:0;bottom:-2px;height:1px;width:0;
+    background:var(--teal);transition:width .25s ease;
+  }
+  .nav-links a:hover{color:var(--text);}
+  .nav-links a:hover::after{width:100%;}
+  .nav-cta{
+    padding:9px 20px;border:1px solid var(--teal);border-radius:999px;
+    color:var(--teal)!important;font-size:0.85rem!important;font-family:'JetBrains Mono',monospace;
+  }
+  .nav-cta:hover{background:var(--teal-soft);}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:110;}
+  .burger span{width:24px;height:2px;background:var(--text);transition:.3s;}
+  .mobile-menu{
+    position:fixed;inset:0;background:var(--bg-alt);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:32px;z-index:105;
+    opacity:0;pointer-events:none;transition:opacity .3s ease;
+  }
+  .mobile-menu.open{opacity:1;pointer-events:auto;}
+  .mobile-menu a{font-family:'Space Grotesk',sans-serif;font-size:1.6rem;font-weight:600;}
+ 
+  @media(max-width:820px){
+    .nav-links{display:none;}
+    .burger{display:flex;}
+  }
+ 
+  /* ---------- HERO ---------- */
+  .hero{
+    min-height:100vh;
+    display:flex;align-items:center;
+    padding-top:76px;
+    position:relative;
+  }
+  #network{position:absolute;inset:0;z-index:0;opacity:0.55;}
+  .hero-inner{position:relative;z-index:2;width:100%;}
+  .hero .wrap{display:grid;grid-template-columns:1fr;gap:24px;}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:'JetBrains Mono',monospace;font-size:0.8rem;
+    color:var(--teal);letter-spacing:0.08em;
+    border:1px solid var(--border);padding:7px 14px;border-radius:999px;
+    width:fit-content;background:rgba(19,29,53,0.6);
+  }
+  .eyebrow::before{content:"●";color:var(--coral);font-size:0.6rem;animation:blink 1.6s infinite;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
+  .hero h1{
+    font-size:clamp(2.6rem,7vw,5.2rem);
+    font-weight:700;line-height:1.02;letter-spacing:-0.02em;
+    margin-top:20px;
+  }
+  .hero h1 .accent{color:var(--teal);}
+  .role-line{
+    margin-top:22px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:clamp(1rem,2.2vw,1.35rem);
+    color:var(--muted);
+    display:flex;gap:10px;align-items:center;
+  }
+  .role-line .caret{
+    display:inline-block;width:2px;height:1.1em;background:var(--coral);
+    animation:blink 1s infinite;
+  }
+  .hero p.lede{
+    max-width:600px;margin-top:26px;color:var(--muted);font-size:1.05rem;
+  }
+  .hero-cta{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap;}
+  .btn{
+    font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:0.95rem;
+    padding:15px 30px;border-radius:10px;cursor:pointer;border:1px solid transparent;
+    transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-primary{background:var(--teal);color:#06141a;}
+  .btn-primary:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(79,209,197,0.25);}
+  .btn-ghost{border-color:var(--border);color:var(--text);background:rgba(255,255,255,0.02);}
+  .btn-ghost:hover{border-color:var(--teal);transform:translateY(-3px);}
+  .scroll-cue{
+    position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+    font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:var(--muted);
+    display:flex;flex-direction:column;align-items:center;gap:8px;
+    z-index:2;
+  }
+  .scroll-cue .line{width:1px;height:34px;background:linear-gradient(var(--teal),transparent);animation:drop 1.8s infinite;}
+  @keyframes drop{0%{opacity:0;transform:scaleY(0.3);}50%{opacity:1;}100%{opacity:0;transform:scaleY(1);}}
+ 
+  /* ---------- shared reveal ---------- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+ 
+  .section-head{margin-bottom:56px;}
+  .tag{
+    font-family:'JetBrains Mono',monospace;color:var(--coral);font-size:0.82rem;
+    letter-spacing:0.1em;text-transform:uppercase;display:block;margin-bottom:14px;
+  }
+  .section-head h2{font-size:clamp(1.9rem,4vw,2.7rem);font-weight:700;letter-spacing:-0.01em;}
+  .section-head p{color:var(--muted);margin-top:14px;max-width:560px;}
+ 
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:64px;align-items:start;}
+  @media(max-width:860px){.about-grid{grid-template-columns:1fr;gap:40px;}}
+  .about-text p{color:var(--muted);margin-bottom:18px;font-size:1.02rem;}
+  .about-text strong{color:var(--text);font-weight:600;}
+  .fact-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:16px;
+    padding:28px;
+  }
+  .fact-row{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid var(--border);font-size:0.92rem;}
+  .fact-row:last-child{border-bottom:none;}
+  .fact-row span:first-child{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:0.8rem;}
+  .fact-row span:last-child{color:var(--text);text-align:right;}
+ 
+  /* ---------- SKILLS ---------- */
+  .skills-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+  @media(max-width:768px){.skills-grid{grid-template-columns:1fr;}}
+  .skill-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:26px 28px;
+  }
+  .skill-card h3{font-size:1.02rem;margin-bottom:20px;display:flex;align-items:center;gap:10px;font-weight:600;}
+  .skill-card h3 .idx{color:var(--coral);font-family:'JetBrains Mono',monospace;font-size:0.85rem;}
+  .skill-item{margin-bottom:16px;}
+  .skill-item:last-child{margin-bottom:0;}
+  .skill-top{display:flex;justify-content:space-between;font-size:0.86rem;margin-bottom:7px;color:var(--muted);}
+  .skill-top b{color:var(--text);font-weight:500;}
+  .bar-track{height:6px;background:rgba(255,255,255,0.06);border-radius:99px;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:99px;width:0%;background:linear-gradient(90deg,var(--teal),var(--coral));transition:width 1.2s cubic-bezier(.16,1,.3,1);}
+ 
+  /* ---------- JOURNEY (experience/certs timeline) ---------- */
+  .timeline{position:relative;padding-left:34px;}
+  .timeline::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:1px;background:linear-gradient(var(--teal),var(--border));}
+  .t-item{position:relative;padding-bottom:44px;}
+  .t-item:last-child{padding-bottom:0;}
+  .t-dot{position:absolute;left:-34px;top:2px;width:13px;height:13px;border-radius:50%;background:var(--bg);border:2px solid var(--teal);}
+  .t-date{font-family:'JetBrains Mono',monospace;font-size:0.76rem;color:var(--coral);margin-bottom:6px;display:block;}
+  .t-item h3{font-size:1.12rem;font-weight:600;margin-bottom:6px;}
+  .t-item p{color:var(--muted);font-size:0.94rem;max-width:560px;}
+ 
+  /* ---------- PROJECTS ---------- */
+  .project-card{
+    background:linear-gradient(155deg,var(--surface),var(--bg-alt));
+    border:1px solid var(--border);border-radius:20px;
+    padding:44px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;
+    position:relative;overflow:hidden;
+  }
+  @media(max-width:860px){.project-card{grid-template-columns:1fr;padding:30px;}}
+  .project-card::before{
+    content:"";position:absolute;top:-40%;right:-20%;width:60%;height:160%;
+    background:radial-gradient(circle,var(--teal-soft),transparent 70%);
+    pointer-events:none;
+  }
+  .project-visual{
+    aspect-ratio:4/3;border-radius:14px;
+    background:var(--bg);border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
+  }
+  .project-visual canvas{width:100%;height:100%;}
+  .proj-label{font-family:'JetBrains Mono',monospace;font-size:0.74rem;color:var(--muted);margin-bottom:10px;display:block;}
+  .project-card h3{font-size:1.6rem;font-weight:700;margin-bottom:16px;}
+  .project-card p{color:var(--muted);margin-bottom:20px;}
+  .tags{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px;}
+  .tags span{
+    font-family:'JetBrains Mono',monospace;font-size:0.74rem;color:var(--teal);
+    background:var(--teal-soft);padding:6px 12px;border-radius:99px;border:1px solid rgba(79,209,197,0.25);
+  }
+  .proj-link{display:inline-flex;align-items:center;gap:8px;color:var(--text);font-weight:600;font-size:0.92rem;border-bottom:1px solid var(--teal);padding-bottom:2px;width:fit-content;}
+  .proj-link:hover{color:var(--teal);}
+ 
+  /* ---------- EDUCATION ---------- */
+  .edu-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+  @media(max-width:860px){.edu-grid{grid-template-columns:1fr;}}
+  .edu-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:30px 26px;
+    transition:transform .3s ease, border-color .3s ease;
+  }
+  .edu-card:hover{transform:translateY(-6px);border-color:var(--teal);}
+  .edu-card .yr{font-family:'JetBrains Mono',monospace;color:var(--coral);font-size:0.78rem;margin-bottom:14px;display:block;}
+  .edu-card h3{font-size:1.05rem;font-weight:600;margin-bottom:8px;}
+  .edu-card p{color:var(--muted);font-size:0.9rem;}
+ 
+  /* ---------- CONTACT ---------- */
+  .contact-box{
+    background:linear-gradient(155deg,var(--surface),var(--bg-alt));
+    border:1px solid var(--border);border-radius:24px;
+    padding:70px 60px;text-align:center;position:relative;overflow:hidden;
+  }
+  @media(max-width:768px){.contact-box{padding:50px 26px;}}
+  .contact-box::before{
+    content:"";position:absolute;inset:0;
+    background:radial-gradient(circle at 50% 0%,var(--teal-soft),transparent 60%);
+    pointer-events:none;
+  }
+  .contact-box h2{font-size:clamp(2rem,5vw,3rem);font-weight:700;margin-bottom:18px;position:relative;}
+  .contact-box>p{color:var(--muted);max-width:480px;margin:0 auto 40px;position:relative;}
+  .contact-links{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;position:relative;}
+  .clink{
+    display:flex;align-items:center;gap:10px;
+    background:rgba(255,255,255,0.03);border:1px solid var(--border);
+    padding:14px 22px;border-radius:12px;font-size:0.9rem;
+    transition:transform .25s ease, border-color .25s ease;
+  }
+  .clink:hover{transform:translateY(-4px);border-color:var(--teal);color:var(--teal);}
+  .clink svg{width:17px;height:17px;flex-shrink:0;}
+ 
+  footer{
+    text-align:center;padding:40px 0 30px;color:var(--muted);font-size:0.82rem;font-family:'JetBrains Mono',monospace;
+    position:relative;
+  }
+  footer .decl{max-width:480px;margin:0 auto 14px;font-size:0.78rem;opacity:0.7;font-style:italic;}
+</style>
+</head>
+<body>
+ 
+<header id="siteHeader">
+  <nav class="wrap">
+    <div class="logo"><span class="dot"></span>Sourish<span class="mono" style="color:var(--muted);font-weight:400;">.reddy</span></div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#journey">Journey</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#contact" class="nav-cta">Contact</a>
+    </div>
+    <div class="burger" id="burger"><span></span><span></span><span></span></div>
+  </nav>
+</header>
+ 
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#journey">Journey</a>
+  <a href="#projects">Projects</a>
+  <a href="#education">Education</a>
+  <a href="#contact">Contact</a>
+</div>
+ 
+<!-- HERO -->
+<section class="hero">
+  <canvas id="network"></canvas>
+  <div class="hero-inner wrap">
+    <span class="eyebrow mono">AVAILABLE FOR OPPORTUNITIES</span>
+    <h1>Your name <br><span class="accent"> </span></h1>
+    <div class="role-line">
+      <span>&gt;</span><span id="typedRole">Data Science Student</span><span class="caret"></span>
+    </div>
+    <p class="lede">Final-year B.Tech (CSE – Data Science) student building neural networks and dashboards that turn raw data into decisions — from diagnosing retinal disease with CNNs to visualizing insight with Power BI and Tableau.</p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Projects →</a>
+      <a href="#contact" class="btn btn-ghost">Get in Touch</a>
+    </div>
+  </div>
+  <div class="scroll-cue"><span>SCROLL</span><span class="line"></span></div>
+</section>
+ 
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="reveal">
+        <span class="tag">01 — About</span>
+        <h2>Curious by default,<br>disciplined by practice.</h2>
+        <div class="about-text" style="margin-top:28px;">
+          <p>I'm <strong>your name</strong>, a final-year Computer Science student specializing in <strong>Data Science</strong> at Malla Reddy College of Engineering, Hyderabad. My interest sits at the intersection of applied machine learning and clear, honest data storytelling.</p>
+          <p>My flagship project, <strong>EyeDeep‑Net</strong>, is a custom convolutional neural network built to detect and classify retinal disease from fundus images — an attempt to put deep learning to work on something that actually protects people's eyesight.</p>
+          <p>Outside of models and dashboards, I bring the same patience and self-belief to every problem — the kind that comes from starting somewhere unfamiliar and staying with it until it makes sense.</p>
+        </div>
+      </div>
+      <div class="reveal fact-card">
+        <div class="fact-row"><span>LOCATION</span><span>Hyderabad, IN</span></div>
+        <div class="fact-row"><span>DEGREE</span><span>B.Tech CSE – Data Science</span></div>
+        <div class="fact-row"><span>YEAR</span><span>4th Year</span></div>
+        <div class="fact-row"><span>LANGUAGES</span><span>English, Hindi, Telugu</span></div>
+        <div class="fact-row"><span>INTERESTS</span><span>Outdoor games</span></div>
+        <div class="fact-row"><span>STRENGTHS</span><span>Self-confidence, Patience</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- SKILLS -->
+<section id="skills" style="background:var(--bg-alt);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="tag">02 — Skills</span>
+      <h2>Tools I reach for</h2>
+      <p>A working stack for moving from raw data to a model, and from a model to something people can actually read.</p>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <h3><span class="idx">01</span> Languages</h3>
+        <div class="skill-item">
+          <div class="skill-top"><b>Python</b><span>Primary</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="90"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-top"><b>Java</b><span>Working</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="65"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-top"><b>C Programming</b><span>Working</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="70"></div></div>
+        </div>
+      </div>
+      <div class="skill-card reveal">
+        <h3><span class="idx">02</span> Data &amp; Analytics</h3>
+        <div class="skill-item">
+          <div class="skill-top"><b>Data Analytics</b><span>Applied</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="82"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-top"><b>Power BI</b><span>Applied</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="78"></div></div>
+        </div>
+        <div class="skill-item">
+          <div class="skill-top"><b>Tableau</b><span>Applied</span></div>
+          <div class="bar-track"><div class="bar-fill" data-w="75"></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- JOURNEY / EXPERIENCE & CERTIFICATIONS -->
+<section id="journey">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="tag">03 — Journey</span>
+      <h2>Experience &amp; Certifications</h2>
+      <p>I'm early in my career — this is the practical training and coursework I've been building on while finishing my degree.</p>
+    </div>
+    <div class="timeline reveal">
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <span class="t-date">DELOITTE — JOB SIMULATION</span>
+        <h3>Data Analytics Job Simulation</h3>
+        <p>Completed a job-simulation program covering real-world data analytics workflows, from forensic data review to client-style reporting.</p>
+      </div>
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <span class="t-date">IBM — CERTIFICATION</span>
+        <h3>Project Management Fundamentals</h3>
+        <p>Studied core project-management principles: scoping, scheduling and stakeholder communication, applied later to structuring my own project work.</p>
+      </div>
+      <div class="t-item">
+        <div class="t-dot"></div>
+        <span class="t-date">IBM — CERTIFICATION</span>
+        <h3>Getting Started With Artificial Intelligence</h3>
+        <p>Built a foundation in AI concepts and machine learning workflows that directly informed the design of EyeDeep‑Net.</p>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- PROJECTS -->
+<section id="projects" style="background:var(--bg-alt);">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="tag">04 — Projects</span>
+      <h2>Featured work</h2>
+      <p>The project I keep coming back to — and the one that pointed me toward deep learning.</p>
+    </div>
+    <div class="project-card reveal">
+      <div>
+        <span class="proj-label">FEATURED PROJECT — CONVOLUTIONAL NEURAL NETWORK</span>
+        <h3>EyeDeep‑Net</h3>
+        <p>A custom CNN architecture for multi-class diagnosis of retinal diseases, designed to automatically detect and classify conditions from fundus images before they cause vision loss.</p>
+        <div class="tags">
+          <span>Python</span>
+          <span>CNN / Deep Learning</span>
+          <span>Medical Imaging</span>
+          <span>Healthcare AI</span>
+        </div>
+        <a href="your-project-link" target="_blank" class="proj-link">View on GitHub →</a>
+      </div>
+      <div class="project-visual"><canvas id="projCanvas"></canvas></div>
+    </div>
+  </div>
+</section>
+ 
+<!-- EDUCATION -->
+<section id="education">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="tag">05 — Education</span>
+      <h2>Academic background</h2>
+    </div>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <span class="yr">CURRENT — 4TH YEAR</span>
+        <h3>B.Tech, CSE (Data Science)</h3>
+        <p>Malla Reddy College of Engineering</p>
+      </div>
+      <div class="edu-card reveal">
+        <span class="yr">INTERMEDIATE — MPC</span>
+        <h3>Narayana Junior College</h3>
+        <p>Kukatpally, Hyderabad</p>
+      </div>
+      <div class="edu-card reveal">
+        <span class="yr">CBSE</span>
+        <h3>Kendriya Vidyalaya</h3>
+        <p>Gachibowli, Hyderabad</p>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- CONTACT -->
+<section id="contact">
+  <div class="wrap">
+    <div class="contact-box reveal">
+      <h2>Let's build something.</h2>
+      <p>Open to internships, entry-level data science roles, and interesting projects. I usually reply within a day.</p>
+      <div class="contact-links">
+        <a class="clink" href="mailto:mail">
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l9 6 9-6M4 5h16a1 1 0 011 1v12a1 1 0 01-1 1H4a1 1 0 01-1-1V6a1 1 0 011-1z"/></svg>
+          yourmail
+        </a>
+        <a class="clink" href="tel:+91 1234567890">
+          <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h2.28a1 1 0 01.97.76l1.1 4.4a1 1 0 01-.5 1.12l-1.6.8a11.05 11.05 0 005.5 5.5l.8-1.6a1 1 0 011.12-.5l4.4 1.1a1 1 0 01.76.97V19a2 2 0 01-2 2h-1C8.6 21 3 15.4 3 8.5v-1a2 2 0 010-2.5z"/></svg>
+          +91 1234567890
+        </a>
+        <a class="clink" href="your linkedin url" target="_blank">
+          <svg fill="currentColor" viewBox="0 0 24 24"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 110-4.12 2.06 2.06 0 010 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+          LinkedIn
+        </a>
+        <a class="clink" href="github  link" target="_blank">
+          <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-.87-.01-1.71-2.78.62-3.37-1.37-3.37-1.37-.46-1.19-1.11-1.51-1.11-1.51-.91-.64.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.73 0 0 .84-.28 2.75 1.05a9.3 9.3 0 015 0c1.9-1.33 2.74-1.05 2.74-1.05.56 1.42.21 2.47.1 2.73.65.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0022 12.25C22 6.58 17.52 2 12 2z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<footer>
+  <p class="decl">"I hereby declare that the statements made above are true, complete and correct to the best of my knowledge and belief."</p>
+  <div>© <span id="year"></span> your name · Built from Hyderabad, India</div>
+</footer>
+ 
+<script>
+  // year
+  document.getElementById('year').textContent = new Date().getFullYear();
+ 
+  // header scroll state
+  const header = document.getElementById('siteHeader');
+  window.addEventListener('scroll', () => {
+    header.classList.toggle('scrolled', window.scrollY > 20);
+  });
+ 
+  // mobile menu
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mobileMenu.classList.remove('open')));
+ 
+  // typing role rotator
+  const roles = ["Data Science Student", "Deep Learning Enthusiast", "Python Developer", "Insight Builder"];
+  const roleEl = document.getElementById('typedRole');
+  let ri = 0, ci = 0, deleting = false;
+  function typeLoop(){
+    const current = roles[ri];
+    if(!deleting){
+      ci++;
+      roleEl.textContent = current.slice(0, ci);
+      if(ci === current.length){ deleting = true; setTimeout(typeLoop, 1400); return; }
+    } else {
+      ci--;
+      roleEl.textContent = current.slice(0, ci);
+      if(ci === 0){ deleting = false; ri = (ri+1) % roles.length; }
+    }
+    setTimeout(typeLoop, deleting ? 35 : 65);
+  }
+  typeLoop();
+ 
+  // reveal on scroll
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        if(e.target.querySelectorAll){
+          e.target.querySelectorAll('.bar-fill').forEach(b => { b.style.width = b.dataset.w + '%'; });
+        }
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:0.15});
+  revealEls.forEach(el => io.observe(el));
+ 
+  // network canvas (hero)
+  function initNetwork(canvasId, opts){
+    const canvas = document.getElementById(canvasId);
+    const ctx = canvas.getContext('2d');
+    let w, h, nodes;
+    const count = opts.count;
+    function resize(){
+      w = canvas.offsetWidth; h = canvas.offsetHeight;
+      canvas.width = w * devicePixelRatio; canvas.height = h * devicePixelRatio;
+      ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
+    }
+    function build(){
+      nodes = Array.from({length:count}, () => ({
+        x: Math.random()*w, y: Math.random()*h,
+        vx: (Math.random()-0.5)*0.3, vy: (Math.random()-0.5)*0.3
+      }));
+    }
+    function tick(){
+      ctx.clearRect(0,0,w,h);
+      for(const n of nodes){
+        n.x += n.vx; n.y += n.vy;
+        if(n.x < 0 || n.x > w) n.vx *= -1;
+        if(n.y < 0 || n.y > h) n.vy *= -1;
+      }
+      for(let i=0;i<nodes.length;i++){
+        for(let j=i+1;j<nodes.length;j++){
+          const a = nodes[i], b = nodes[j];
+          const d = Math.hypot(a.x-b.x, a.y-b.y);
+          if(d < opts.linkDist){
+            ctx.strokeStyle = `rgba(79,209,197,${(1 - d/opts.linkDist)*opts.lineAlpha})`;
+            ctx.lineWidth = 1;
+            ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+          }
+        }
+      }
+      for(const n of nodes){
+        ctx.fillStyle = opts.nodeColor;
+        ctx.beginPath(); ctx.arc(n.x,n.y,opts.nodeSize,0,Math.PI*2); ctx.fill();
+      }
+      requestAnimationFrame(tick);
+    }
+    resize(); build();
+    window.addEventListener('resize', () => { resize(); build(); });
+    tick();
+  }
+  initNetwork('network', {count:70, linkDist:130, lineAlpha:0.5, nodeColor:'rgba(255,107,92,0.8)', nodeSize:1.8});
+  initNetwork('projCanvas', {count:36, linkDist:70, lineAlpha:0.6, nodeColor:'rgba(79,209,197,0.9)', nodeSize:2.2});
+</script>
+</body>
+</html>
+ 
